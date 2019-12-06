@@ -12,10 +12,10 @@ const connection = mysql.createConnection({
 connection.connect(err => {
     if (err) throw err;
 
-
+    //call loginPrompt() from here
 
 })
 
 function loginPrompt() {
-    
+    //inquirer prompt asking to login or sign up
 }
