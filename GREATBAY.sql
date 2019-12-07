@@ -1,0 +1,16 @@
+CREATE DATABASE IF NOT EXISTS GREATBAY_DB;
+USE GREATBAY_DB;
+
+CREATE TABLE IF NOT EXISTS ITEMS(
+ id INTEGER NOT NULL AUTO_INCREMENT,
+productname VARCHAR(50) NOT NULL,
+product_description VARCHAR (1000),
+item_type VARCHAR(20),
+image_path VARCHAR(100),
+create_date DATE,
+update_date DATE,
+bid_price INTEGER,
+seller_username VARCHAR(20),
+bider_username VARCHAR(20),
+PRIMARY KEY(id)
+);
