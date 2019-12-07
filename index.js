@@ -56,11 +56,12 @@ function promptBidOnItem() {
     connection.query(
         "SELECT * FROM item",
         (error, result) => {
-            console.log(result);
             result.forEach(item => {
                 items.push(new Item.Item(item)); //There must be a better way, to avoid "Item.Item()"
                 itemChoices.push(item.id);
             });
+
+            itemChoices.push("Back");
 
             showAvailableItems(items);
 
@@ -70,14 +71,34 @@ function promptBidOnItem() {
                     choices: itemChoices,
                     message: "Choose an item: ",
                     name: "id"
-                },
-                {
-                    message: "Enter a new bid: ",
-                    name: "bid"
                 }
             ]).then(choice => {
-                // console.log(choice.id);
-                // console.log(parseFloat(choice.bid));
+                if (choice.id == "Back") {
+                    promptAction();
+                } else {
+                    inquirer.prompt([
+                        {
+                            message: "Enter a new bid: ",
+                            name: "bid"
+                        }       
+                    ]).then(answer => {
+                        let selectedItem;
+                        items.forEach(item => {
+                            if (item.id == choice.id) {
+                                selectedItem = item;
+                            }
+                        });
+
+                        if (parseFloat(selectedItem.highBid) < parseFloat(answer.bid)) {
+                            console.log("You are the new high bidder!");
+                            Item.update(choice.id, { highBid: parseFloat(answer.bid) });
+                        } else {
+                            console.log("Bid not high enough.");
+                        }
+                        promptBidOnItem();
+                    })
+                    
+                }
             })
         }
     )

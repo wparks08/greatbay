@@ -20,7 +20,7 @@ function create(values) {
         "INSERT INTO item SET ?",
         values,
         (error, result) => {
-            console.log(result);
+            //do nothing?
         }
     )
 }
@@ -68,7 +68,6 @@ function deleteItem(id) {
 module.exports = {
     Item: Item,
     create: create,
-    read: read,
     update: update,
     delete: deleteItem
 }
